@@ -1,0 +1,31 @@
+.full-height {
+    height: 100%;
+}
+
+.padded {
+    padding: 20px;
+}
+
+.with-icon {
+    display: flex;
+    align-items: center;
+}
+
+.side-panel {
+    padding-top: 2rem;
+  }
+  h1 {
+    padding: 0 1rem;
+}
+
+h2 {padding: 1rem;}
+
+mat-toolbar{
+    position:fixed;
+    top:0;
+    z-index: 2;
+}
+
+mat-sidenav-container {
+    height:100%;
+}
