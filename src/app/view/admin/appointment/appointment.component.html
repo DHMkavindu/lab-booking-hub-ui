@@ -1,0 +1,303 @@
+<div class="container">
+    <mat-progress-bar mode="indeterminate" ></mat-progress-bar>
+    <mat-card class="main-card" style="background-color: #48C9B0;">
+      <mat-card-content>
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Appointment Information</mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content>
+              <hr>
+              <mat-accordion class="example-headers-align">
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Doctor Appointment
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                
+                  <form [formGroup]="doctorForm">
+                    <mat-card-content>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md">
+                              <mat-form-field>
+                                <mat-label>Select an Doctor</mat-label>
+                                <mat-select formControlName="doctor">
+                                  <mat-option *ngFor="let option of options" [value]="option.value">
+                                    {{ option.viewValue }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                                <!-- <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Doctor</mat-label>
+                                    <input matInput formControlName="doctor">
+                                  </mat-form-field> -->
+                            </div>
+                            <div class="col-md">
+                                <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Patient</mat-label>
+                                    <input matInput formControlName="patient">
+                                  </mat-form-field>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-md">
+                                <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Date</mat-label>
+                                    <input matInput type="number" formControlName="date">
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-md">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Time</mat-label>                
+                                   <input matInput formControlName="time">
+                                  </mat-form-field>
+                            </div>
+                         </div>
+                         <div style="flex: 1 1 auto; ">
+                          <button mat-raised-button color="primary" style="float: right;" [disabled]="!doctorForm.valid" (click)="createDoctorAppointment()">Save</button>
+                         </div>
+                         <br>
+                    </mat-card-content>
+                  </form>
+
+<br>
+                  <mat-card-content>
+                    <mat-card class="example-card">
+                      <table mat-table class="main-table center" [dataSource]="doctorDataSource" >
+                        <ng-container matColumnDef="doctorId">
+                            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Doctor Id </th>
+                            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.doctorId}} </td>
+                          </ng-container>
+
+
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Name</th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.firstname}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="contactNumber">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Contact Number </th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.contactNumber}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="patientId">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Patient Id </th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.patientId}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Date </th>
+                            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.patientId}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="time">
+                            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Time </th>
+                            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.patientId}} </td>
+                          </ng-container>
+              
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Action </th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> 
+                            <button mat-icon-button color="primary"  >
+                              <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn"  >
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="doctorDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: doctorDisplayedColumns;"></tr>
+                      </table>
+                      <!-- <mat-card-actions >
+                        <mat-paginator
+                        [length]="100"
+                            [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            aria-label="Select page">
+                        </mat-paginator>
+                      </mat-card-actions> -->
+                    </mat-card>
+                  </mat-card-content>
+
+                  <mat-action-row>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              
+                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Technician Appointment
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <form [formGroup]="technicianForm">
+                    <mat-card-content>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md">
+                                <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Technician</mat-label>
+                                    <input matInput formControlName="technician">
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-md">
+                                <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Patient</mat-label>
+                                    <input matInput formControlName="technicianpatient">
+                                  </mat-form-field>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-md">
+                                <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Date</mat-label>
+                                    <input matInput type="number" formControlName="techniciandate">
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-md">
+                                <mat-form-field appearance="outline" style="width:350px;">
+                                    <mat-label>Time</mat-label>
+                                    <input matInput formControlName="techniciantime">
+                                  </mat-form-field>
+                            </div>
+                         </div>
+                         <!-- <div style="flex: 1 1 auto; ">
+                          <button mat-raised-button color="primary" style="float: right;" [disabled]="!customerForm.valid" (click)="saveCustomer()">Save</button>
+                         </div> -->
+                         <br>
+                    </mat-card-content>
+                  </form>
+<br>
+                  <mat-card-content>
+                    <mat-card class="example-card">
+                      <table mat-table class="main-table center" [dataSource]="technicianDataSource" >
+                        <ng-container matColumnDef="technicianId">
+                            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Technician Id </th>
+                            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.doctorId}} </td>
+                          </ng-container>
+
+
+                        <ng-container matColumnDef="name">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Name</th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.firstname}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="contactNumber">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Contact Number </th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.contactNumber}} </td>
+                        </ng-container>
+                      
+                        <ng-container matColumnDef="patientId">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Patient Id </th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.patientId}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Date </th>
+                            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.patientId}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="time">
+                            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Time </th>
+                            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.patientId}} </td>
+                          </ng-container>
+              
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Action </th>
+                          <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> 
+                            <button mat-icon-button color="primary"  >
+                              <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn"  >
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="technicianDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: technicianDisplayedColumns;"></tr>
+                      </table>
+                      <!-- <mat-card-actions >
+                        <mat-paginator
+                        [length]="100"
+                            [pageSize]="10"
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            aria-label="Select page">
+                        </mat-paginator>
+                      </mat-card-actions> -->
+                    </mat-card>
+                  </mat-card-content>
+                  <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              
+              </mat-accordion>
+              
+          </mat-card-content>
+     
+        </mat-card>
+      </mat-card-content>
+  
+      <!-- <mat-card-content>
+        <mat-card class="example-card">
+          <table mat-table class="main-table center" [dataSource]="dataSource" >
+            <ng-container matColumnDef="firstname">
+              <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> First Name</th>
+              <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.firstname}} </td>
+            </ng-container>
+          
+           
+            <ng-container matColumnDef="lastname">
+              <th mat-header-cell *matHeaderCellDef style="flex: 0 0 30%;"> Last Name </th>
+              <td mat-cell *matCellDef="let element" style="flex: 0 0 30%;"> {{element.lastname}} </td>
+            </ng-container>
+          
+           
+            <ng-container matColumnDef="contactNumber">
+              <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Contact Number </th>
+              <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.contactNumber}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="nic">
+              <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> NIC </th>
+              <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> {{element.nic}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%;"> Action </th>
+              <td mat-cell *matCellDef="let element" style="flex: 0 0 35%;"> 
+                <button mat-icon-button color="primary"  >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn"  >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+           <mat-card-actions >
+            <mat-paginator
+            [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+            </mat-paginator>
+          </mat-card-actions> 
+        </mat-card>
+      </mat-card-content> -->
+    </mat-card> 
+    </div>
+  
+  
+    

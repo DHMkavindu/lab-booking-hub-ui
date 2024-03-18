@@ -1,0 +1,49 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav [opened]="true" mode="side" style="width: 15%;" style="background-color: #48C9B0;">
+      <mat-nav-list>
+        <a mat-list-item>
+          <span class="entry">
+            <div (click)="navigateHandler('dashbord/doctor')">
+              <mat-icon>person</mat-icon>&nbsp;
+              <span>Doctor</span>
+            </div>
+          </span >
+        </a>
+        <a mat-list-item>
+          <span class="entry">
+            <div (click)="navigateHandler('dashbord/patient')">
+              <mat-icon>account_circle</mat-icon>&nbsp;
+              <span>Patient</span>
+            </div>
+          </span >
+        </a>
+        <a mat-list-item>
+          <span class="entry">
+            <div (click)="navigateHandler('dashbord/technicians')">
+              <mat-icon>account_circle</mat-icon>&nbsp;
+              <span>Technicians</span>
+            </div>
+          </span >
+        </a>
+        <a mat-list-item>
+          <span class="entry">
+            <div (click)="navigateHandler('dashbord/appointment')">
+              <mat-icon>date_range</mat-icon>&nbsp;
+              <span>Appointment</span>
+            </div>
+          </span >
+        </a>
+        <a mat-list-item>
+          <span class="entry">
+            <div (click)="navigateHandler('dashbord/report')">
+              <mat-icon>description</mat-icon>&nbsp;
+              <span>Report</span>
+            </div>
+          </span >
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

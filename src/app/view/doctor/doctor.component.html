@@ -1,0 +1,169 @@
+<div class="container">
+  <!-- <mat-progress-bar mode="indeterminate" ></mat-progress-bar> -->
+  <mat-card class="main-card">
+    <mat-card-content>
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Doctor Information</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="doctorForm">
+          <mat-card-content>
+            <hr />
+            <div class="row">
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>First Name</mat-label>
+                  <input matInput formControlName="firstname" />
+                </mat-form-field>
+              </div>
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>Doctor Specialization</mat-label>
+                  <mat-select name="selectedDoctorType" placeholder="Doctor Type" formControlName="Specialization">
+                    <mat-option
+                      *ngFor="let food of doctorType"
+                      [value]="food.value"
+                    >
+                      {{ food.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="col-md">
+                      <mat-form-field appearance="outline" style="width:350px;">
+                          <mat-label>Last Name</mat-label>
+                          <input matInput formControlName="lastname">
+                        </mat-form-field>
+                  </div> -->
+            </div>
+            <div class="row">
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>Contact Number</mat-label>
+                  <input matInput type="number" formControlName="telNumber" />
+                </mat-form-field>
+              </div>
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>NIC</mat-label>
+                  <input matInput formControlName="nic" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email" />
+                </mat-form-field>
+              </div>
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>Gender</mat-label>
+                  <input matInput formControlName="gender" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <section class="example-section">
+                <label class="example-margin">Availability:</label>
+                <mat-radio-group [(ngModel)]="labelPosition" formControlName="availability">
+                  <mat-radio-button class="example-margin" value="Yes"
+                    >Yes</mat-radio-button
+                  >
+                  <mat-radio-button class="example-margin" value="No"
+                    >No</mat-radio-button
+                  >
+                </mat-radio-group>
+              </section>
+              <div class="col-md">
+                <mat-form-field appearance="outline" style="width: 350px">
+                  <mat-label>Appointment Count</mat-label>
+                  <input matInput type="number" formControlName="maxAppointment" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div style="flex: 1 1 auto">
+              <button
+                mat-raised-button
+                color="primary"
+                style="float: right"
+                (click)="saveCustomer()"
+              >
+                Save
+              </button>
+            </div>
+            <br />
+          </mat-card-content>
+        </form>
+      </mat-card>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-card class="example-card">
+        <table mat-table class="main-table center" [dataSource]="dataSource">
+          <ng-container matColumnDef="firstname">
+            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%">
+              First Name
+            </th>
+            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%">
+              {{ element.firstname }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 30%">
+              Last Name
+            </th>
+            <td mat-cell *matCellDef="let element" style="flex: 0 0 30%">
+              {{ element.lastname }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="contactNumber">
+            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%">
+              Contact Number
+            </th>
+            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%">
+              {{ element.contactNumber }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nic">
+            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%">NIC</th>
+            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%">
+              {{ element.nic }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="flex: 0 0 35%">
+              Action
+            </th>
+            <td mat-cell *matCellDef="let element" style="flex: 0 0 35%">
+              <button mat-icon-button color="primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <!-- <mat-card-actions >
+            <mat-paginator
+            [length]="100"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                aria-label="Select page">
+            </mat-paginator>
+          </mat-card-actions> -->
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+</div>
